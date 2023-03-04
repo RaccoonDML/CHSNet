@@ -1,0 +1,5 @@
+pytorch==1.7.0
+torchvision==0.8.0
+tqdm==4.64.0
+einops==0.4.1
+wandb==0.13.3
