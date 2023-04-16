@@ -17,7 +17,7 @@ def random_crop(im_h, im_w, crop_h, crop_w):
     return i, j, crop_h, crop_w
 
 
-class Crowd(data.Dataset):
+class FSCData(data.Dataset):
     def __init__(self, root_path, crop_size,
                  downsample_ratio, is_gray=False,
                  method='train'):

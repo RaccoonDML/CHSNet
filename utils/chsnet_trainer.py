@@ -8,7 +8,7 @@ import torch
 from torch import optim
 from torch.utils.data import DataLoader
 
-from datasets.crowd_dmap import Crowd
+from datasets.fsc_data import FSCData
 from models.chsnet import CHSNet
 from losses.losses import CHSLoss
 from utils.trainer import Trainer
@@ -37,7 +37,7 @@ class CHSNetTrainer(Trainer):
         else:
             raise Exception("gpu is not available")
 
-        train_datasets = Crowd(os.path.join(args.data_dir, 'train'),
+        train_datasets = FSCData(os.path.join(args.data_dir, 'train'),
                                args.crop_size,
                                args.downsample_ratio,
                                args.is_gray, method='train')
@@ -47,7 +47,7 @@ class CHSNetTrainer(Trainer):
                                        shuffle=True,
                                        num_workers=args.num_workers,
                                        pin_memory=True)
-        val_datasets = Crowd(os.path.join(args.data_dir, 'test'), 512, 8, is_gray=False, method='val')
+        val_datasets = FSCData(os.path.join(args.data_dir, 'test'), 512, 8, is_gray=False, method='val')
         val_dataloaders = torch.utils.data.DataLoader(val_datasets, 1, shuffle=False,
                                                        num_workers=args.num_workers, pin_memory=True)
         self.dataloaders = {'train': train_dataloaders, 'val': val_dataloaders}
