@@ -7,7 +7,7 @@ import wandb
 
 from utils.chsnet_trainer import CHSNetTrainer
 
-
+#  add test fsc
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train ')
