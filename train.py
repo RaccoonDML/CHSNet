@@ -5,7 +5,7 @@ import numpy as np
 import random
 import wandb
 
-from utils.chsnet_trainer import CHSNetTrainer
+from utils.fsc_trainer import FSCTrainer
 
 #  add test fsc
 
@@ -15,14 +15,12 @@ def parse_args():
     parser.add_argument('--device', default='0', help='assign device')
     parser.add_argument('--no-wandb',  action='store_true', default=False, help='whether to use wandb')
 
-    parser.add_argument('--data-dir', default=r'../DATASET/QNRF-trainfull-test-dmapfix15', help='training data directory')
+    parser.add_argument('--data-dir', default=r'./datasets/FSC', help='training data directory')
     parser.add_argument('--log-param', type=float, default=100.0, help='dmap scale factor')
     parser.add_argument('--is-gray', type=bool, default=False, help='whether the input image is gray')
-    parser.add_argument('--crop-size', type=int, default=512, help='the crop size of the train image')
+    parser.add_argument('--crop-size', type=int, default=384, help='the crop size of the train image')
     parser.add_argument('--downsample-ratio', type=int, default=16, help='downsample ratio')
     parser.add_argument('--dcsize', type=int, default=4, help='divide count size for density map')
-    parser.add_argument('--max-noisy-ratio', type=float, default=0.1, help='for chsloss')
-    parser.add_argument('--max-weight-ratio', type=float, default=1, help='for chsloss')
 
     parser.add_argument('--lr', type=float, default=4*1e-5, help='the initial learning rate')
     parser.add_argument('--batch-size', type=int, default=1, help='train batch size')
@@ -65,8 +63,8 @@ if __name__ == '__main__':
     if args.no_wandb:
         wandb.init(mode="disabled")
     else:
-        wandb.init(project="CHSNet", name=args.tag, config=vars(args))
-    trainer = CHSNetTrainer(args)
+        wandb.init(project="FSC", name=args.tag, config=vars(args))
+    trainer = FSCTrainer(args)
     trainer.setup()
     trainer.train()
     wandb.finish()
