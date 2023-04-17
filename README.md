@@ -1,4 +1,4 @@
-# This branch (fsc) is for FSC147 dataset
+# This branch (fsc) is for CAC task
 This branch provides baseline code for few-shot object counting task.
 
  VGG16Trans model is adopted for counting. 
