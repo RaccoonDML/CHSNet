@@ -10,6 +10,7 @@ from torch.utils.data import DataLoader
 
 from datasets.fsc_data import FSCData
 from models.convtrans import VGG16Trans
+from losses.losses import DownMSELoss
 from utils.trainer import Trainer
 from utils.helper import Save_Handle, AverageMeter
 
@@ -55,7 +56,7 @@ class FSCTrainer(Trainer):
 
         self.optimizer = optim.Adam(self.model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
 
-        self.criterion = torch.nn.MSELoss()
+        self.criterion = DownMSELoss(args.dcsize)
 
         self.save_list = Save_Handle(max_num=args.max_model_num)
         self.best_mae = np.inf
@@ -184,6 +185,7 @@ class FSCTrainer(Trainer):
                     pre_count = torch.sum(output)
 
             epoch_res.append(count[0].item() - pre_count.item() / self.args.log_param)
+            # epoch_res.append(count[0].item())
 
         epoch_res = np.array(epoch_res)
         mse = np.sqrt(np.mean(np.square(epoch_res)))

@@ -17,7 +17,6 @@ def parse_args():
 
     parser.add_argument('--data-dir', default=r'./datasets/FSC', help='training data directory')
     parser.add_argument('--log-param', type=float, default=100.0, help='dmap scale factor')
-    parser.add_argument('--is-gray', type=bool, default=False, help='whether the input image is gray')
     parser.add_argument('--crop-size', type=int, default=384, help='the crop size of the train image')
     parser.add_argument('--downsample-ratio', type=int, default=16, help='downsample ratio')
     parser.add_argument('--dcsize', type=int, default=4, help='divide count size for density map')
