@@ -147,7 +147,7 @@ class FSCTrainer(Trainer):
         self.model.eval()
         epoch_res = []
 
-        for inputs, count, ex_list in tqdm(self.dataloaders['val']):
+        for inputs, count, ex_list, name in tqdm(self.dataloaders['val']):
             inputs = inputs.to(self.device)
             # inputs are images with different sizes
             b, c, h, w = inputs.shape

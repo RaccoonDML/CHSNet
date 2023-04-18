@@ -74,7 +74,7 @@ class FSCData(data.Dataset):
         except:
             raise Exception('Image open error {}'.format(im_id))
         
-        sample = [img,rects,dmap,points]
+        sample = [img,rects,dmap,points,im_id]
         
         if self.method == 'train':
             return self.train_transform(sample)
@@ -82,7 +82,7 @@ class FSCData(data.Dataset):
             return self.val_transform(sample)
 
     def train_transform(self, sample):
-        img, rects, dmap, points = sample
+        img, rects, dmap, points, name = sample
         wd, ht = img.size
 
         # crop examplar
@@ -121,7 +121,7 @@ class FSCData(data.Dataset):
         # return img, dmap, examplars
     
     def val_transform(self, sample):
-        img, rects, dmap, points = sample
+        img, rects, dmap, points, name = sample
         # crop examplar
         examplars = []
         rects = rects.astype(np.int)
@@ -131,6 +131,6 @@ class FSCData(data.Dataset):
 
         img = self.trans_img(img)
         count = np.sum(dmap)
-        return img, count, [self.trans_img(ex) for ex in examplars]
+        return img, count, [self.trans_img(ex) for ex in examplars], name
     
 
